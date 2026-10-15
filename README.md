@@ -69,8 +69,8 @@ DB_NAME=marvel_db
 | `just down` | apaga los contenedores (los datos se conservan) |
 | `just reset` | borra los datos y recarga `db/init.sql` desde cero |
 | `just logs` | ver los logs de los contenedores |
-| `just test` | pruebas unitarias |
-| `just e2e` | pruebas de extremo a extremo (levanta la base primero) |
+| `just test` | pruebas unitarias pero la verdad lochita|
+| `just e2e` | *Pa revisar que no embarramos lo de la API xd* pruebas de extremo a extremo (levanta la base primero) |
 | `just check` | base limpia + lint + unitarias + e2e |
 | `just check-docker` | lo mismo, pero dentro de Docker |
 | `just lint` | revisa el estilo del código |
