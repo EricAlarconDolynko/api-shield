@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: shield_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: marvel
+      POSTGRES_PASSWORD: marvel123
+      POSTGRES_DB: marvel_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - shield_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U marvel -d marvel_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  
+  tests:
+    build:
+      context: .
+      target: build
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: marvel
+      DB_PASSWORD: marvel123
+      DB_NAME: marvel_db
+    profiles: ["tools"]
+    command: ["pnpm", "test:e2e"]
+
+  api:
+    build: .
+    container_name: shield_api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: marvel
+      DB_PASSWORD: marvel123
+      DB_NAME: marvel_db
+    ports:
+      - "3000:3000"
+
+volumes:
+  shield_data:
