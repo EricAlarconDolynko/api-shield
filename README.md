@@ -1,3 +1,94 @@
+# API Shield — Personajes Marvel
+
+## 1. Requisitos
+
+| Herramienta | Para qué | Comprobar |
+|---|---|---|
+| Docker Desktop | levanta PostgreSQL | `docker --version` |
+| Node 24+ | correr la API y las pruebas | `node -v` |
+| pnpm | instalar dependencias | `pnpm -v` |
+| just | los comandos de abajo | `just --version` |
+
+
+## 2. Instalar las herramientas
+
+**`just` en Windows**
+
+```bash
+winget install Casey.Just
+```
+
+**`just` en macOS**
+
+```bash
+brew install just
+```
+
+**`pnpm`** 
+
+```bash
+npm install -g pnpm
+```
+
+Luego cierra y abre la terminal, y comprueba con `just --list`.
+
+## 3. Primera vez
+
+Instala las dependencias:
+
+```bash
+just setup
+```
+
+Copia el archivo de variables de entorno (ojo: si ya tienes un `.env`, este
+comando lo sobrescribe):
+
+```bash
+cp .env.example .env
+```
+
+Y asegúrate de que tenga estos valores (son los mismos que usa Docker):
+
+```ini
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5433
+DB_USER=marvel
+DB_PASSWORD=marvel123
+DB_NAME=marvel_db
+```
+
+## 4. Comandos
+
+| Comando | Qué hace |
+|---|---|
+| `just setup` | instala las dependencias del proyecto |
+| `just dev` | **El más importante**: levanta la base en Docker y arranca la API con recarga automática |
+| `just db` | solo la base de datos |
+| `just up` | todo en Docker, API incluida (para demostrar la entrega) |
+| `just down` | apaga los contenedores (los datos se conservan) |
+| `just reset` | borra los datos y recarga `db/init.sql` desde cero |
+| `just logs` | ver los logs de los contenedores |
+| `just test` | pruebas unitarias |
+| `just e2e` | pruebas de extremo a extremo (levanta la base primero) |
+| `just check` | base limpia + lint + unitarias + e2e |
+| `just check-docker` | lo mismo, pero dentro de Docker |
+| `just lint` | revisa el estilo del código |
+| `just` | lista todas las recetas disponibles |
+
+## 5. URLs
+
+| Dirección | Qué es |
+|---|---|
+| http://localhost:3000/api/docs | La documentación y el lugar para probar los endpoints |
+| http://localhost:3000/api/characters | lista de personajes |
+| http://localhost:3000/api/teams | lista de equipos |
+
+
+
+## Aqui Abajito esta lo generado por Nest
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

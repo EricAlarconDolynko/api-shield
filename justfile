@@ -1,5 +1,8 @@
 set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 
+setup:
+    pnpm install
+
 default:
     @just --list
 
