@@ -47,7 +47,7 @@ comando lo sobrescribe):
 cp .env.example .env
 ```
 
-Y asegúrate de que tenga estos valores (son los mismos que usa Docker):
+Y ponga esto confie:
 
 ```ini
 PORT=3000
